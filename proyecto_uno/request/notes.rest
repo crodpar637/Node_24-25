@@ -1,0 +1,20 @@
+GET http://localhost:3001/api/notes
+
+### Encontrar un recurso
+GET http://localhost:3001/api/notes/1
+
+### Recurso que no existe
+GET http://localhost:3001/api/notes/6
+
+### Borrar un recurso
+DELETE http://localhost:3001/api/notes/1
+
+### Borrar un recurso
+POST http://localhost:3001/api/notes
+content-Type: application/json
+
+{
+  "id" : 1, 
+  "content": "HTML is easy", 
+  "important": true 
+}
