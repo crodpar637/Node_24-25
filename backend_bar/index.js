@@ -8,10 +8,17 @@ const models = initModels(sequelize);
 
 // Recuperar el modelo platos
 const Plato = models.platos;
+// Recuperar el modelo platos
+const Pedido = models.pedidos;
 
 async function consultaPlatos(){
     const filas = await Plato.findAll();
     console.log("Platos:", filas);
 }
+async function consultaPedidos(){
+    const filas = await Pedido.findAll();
+    console.log("Pedidos:", filas);
+}
 
 consultaPlatos();
+consultaPedidos();
