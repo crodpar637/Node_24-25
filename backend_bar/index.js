@@ -1,24 +1,34 @@
-// Crear la instancia de sequelize con la conexión a la base de datos
-const sequelize = require("./config/sequelize.js");
-// Recuperar función de inicialización de modelos
-const initModels = require("./models/init-models.js").initModels;
+// Importar librería express --> web server
+const express = require("express");
+// Importar librería path, para manejar rutas de ficheros en el servidor
+const path = require("path");
+// Importar libreria CORS
+const cors = require("cors");
+// Importar gestores de rutas
+const platoRoutes = require("./routes/platoRoutes");
 
-// Inicializar los modelos 
-const models = initModels(sequelize);
 
-// Recuperar el modelo platos
-const Plato = models.platos;
-// Recuperar el modelo platos
-const Pedido = models.pedidos;
+const app = express();
+const port = process.env.PORT || 3000;
 
-async function consultaPlatos(){
-    const filas = await Plato.findAll();
-    console.log("Platos:", filas);
-}
-async function consultaPedidos(){
-    const filas = await Pedido.findAll();
-    console.log("Pedidos:", filas);
-}
+// Configurar middleware para analizar JSON en las solicitudes
+app.use(express.json());
+// Configurar CORS para admitir cualquier origen
+app.use(cors());
 
-consultaPlatos();
-consultaPedidos();
+// Configurar rutas de la API Rest
+app.use("/api/platos", platoRoutes);
+
+// // Configurar el middleware para servir archivos estáticos desde el directorio 'public\old_js_vainilla'
+// app.use(express.static(path.join(__dirname, "public","old_js_vainilla")));
+
+// Ruta para manejar las solicitudes al archivo index.html
+// app.get('/', (req, res) => {
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "public", "old_js_vainilla","index.html"));
+// });
+
+// Iniciar el servidor
+app.listen(port, () => {
+  console.log(`Servidor escuchando en el puerto ${port}`);
+});
