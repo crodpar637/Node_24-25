@@ -1,4 +1,4 @@
-
+// Importar libreria para respuestas
 const Respuesta = require("../utils/respuesta");
 // Recuperar función de inicialización de modelos
 const initModels = require("../models/init-models.js").initModels;
@@ -18,7 +18,7 @@ class PlatoController {
       const data = await Plato.findAll(); // Recuperar todos los platos
       res.json(Respuesta.exito(data, "Datos de platos recuperados"));
     } catch (err) {
-      // Handle errors during the service call
+      // Handle errors during the model call
       res
         .status(500)
         .json(
