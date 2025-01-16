@@ -1,1 +1,12 @@
 GET http://localhost:3000/api/platos
+
+###
+
+POST http://localhost:3000/api/platos
+Content-Type: application/json
+
+{
+    "nombre": "tostada",
+    "precio": 1.5,
+    "descripcion": "pan tostado con aceite de oliva"
+}
