@@ -22,7 +22,7 @@ class PlatoController {
       
       res.status(201).json(Respuesta.exito(platoNuevo, "Plato insertado"));
     } catch (err) {
-      logMensaje("Error:",err);
+      logMensaje("Error:", err.name || "Nombre no definido");
       res
         .status(500)
         .json(
