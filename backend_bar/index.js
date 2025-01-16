@@ -6,6 +6,7 @@ const path = require("path");
 const cors = require("cors");
 // Importar gestores de rutas
 const platoRoutes = require("./routes/platoRoutes");
+const pedidoRoutes = require("./routes/pedidoRoutes");
 
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors());
 
 // Configurar rutas de la API Rest
 app.use("/api/platos", platoRoutes);
+app.use("/api/pedidos", pedidoRoutes);
 
 // // Configurar el middleware para servir archivos estáticos desde el directorio 'public\old_js_vainilla'
 // app.use(express.static(path.join(__dirname, "public","old_js_vainilla")));
