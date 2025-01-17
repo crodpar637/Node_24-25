@@ -17,12 +17,13 @@ class PlatoController {
   async createPlato(req, res) {
     // Implementa la lógica para crear un nuevo plato
     const plato = req.body;
+   
     try {
       const platoNuevo = await Plato.create(plato); 
       
       res.status(201).json(Respuesta.exito(platoNuevo, "Plato insertado"));
     } catch (err) {
-      logMensaje("Error:", err.name || "Nombre no definido");
+      logMensaje("Error :" + err);
       res
         .status(500)
         .json(
