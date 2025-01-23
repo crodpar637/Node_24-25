@@ -10,3 +10,11 @@ Content-Type: application/json
     "precio": 1.5,
     "descripcion": "pan tostado con aceite de oliva"
 }
+
+###
+# Borrado de un plato que no existe (404)
+DELETE http://localhost:3000/api/platos/99
+
+###
+# Borrado de un plato que existe (204)
+DELETE http://localhost:3000/api/platos/34
