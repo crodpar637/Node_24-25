@@ -7,9 +7,7 @@ router.get('/', platoController.getAllPlato);
 router.get('/:idplato', platoController.getPlatoById);
 router.post('/', platoController.createPlato);
 router.delete('/:idplato', platoController.deletePlato);
-
-
-// router.put('/:idtipo', tipoController.updateTipo);
+router.put('/:idplato', platoController.updatePlato);
 
 
 module.exports = router;
