@@ -76,16 +76,18 @@ class PlatoController {
 
 
   async getPlatoById(req, res) {
+    // El id plato viene en la ruta /api/platos/:idplato
     const idplato = req.params.idplato;
     try {
-      const data = await Plato.findByPk(idplato); 
-      if(data.length > 0 ){
-        res.json(Respuesta.exito(data, "Plato recuperado"));
+      const fila = await Plato.findByPk(idplato); 
+      if(fila){ // Si se ha recuprado un plato
+        res.json(Respuesta.exito(fila, "Plato recuperado"));
       } else {
         res.status(404).json(Respuesta.error(null, "Plato no encontrado"));
       }
 
     } catch (err) {
+      logMensaje("Error :" + err);
       res
         .status(500)
         .json(
