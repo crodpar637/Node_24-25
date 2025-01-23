@@ -74,6 +74,28 @@ class PlatoController {
     }
   }
 
+
+  async getPlatoById(req, res) {
+    const idplato = req.params.idplato;
+    try {
+      const data = await Plato.findByPk(idplato); 
+      if(data.length > 0 ){
+        res.json(Respuesta.exito(data, "Plato recuperado"));
+      } else {
+        res.status(404).json(Respuesta.error(null, "Plato no encontrado"));
+      }
+
+    } catch (err) {
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al recuperar los datos: ${req.originalUrl}`
+          )
+        );
+    }
+  }
   // // Handles retrieval of a single type by its ID (implementation pending)
   // async getTipoById(req, res) {
   //   // Implementa la lógica para obtener un dato por ID (pendiente de implementar)

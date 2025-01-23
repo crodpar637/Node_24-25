@@ -23,3 +23,16 @@ node ./config/sequelize.js
 
 //Generar los modelos
 node ./config/sequelize-auto.js
+
+// Instalar express, cors, nodemon
+npm i express cors nodemon
+
+// Modificar package.json para ejecutar nodemon con npm run dev
+"scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js", // incluir esta línea
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+// Ejecutar proyecto
+npm run dev
