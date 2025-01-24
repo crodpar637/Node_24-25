@@ -21,14 +21,14 @@ app.use(cors());
 app.use("/api/platos", platoRoutes);
 app.use("/api/pedidos", pedidoRoutes);
 
-// // Configurar el middleware para servir archivos estáticos desde el directorio 'public\old_js_vainilla'
-// app.use(express.static(path.join(__dirname, "public","old_js_vainilla")));
+// Configurar el middleware para servir archivos estáticos desde el directorio 'public\old_js_vainilla'
+app.use(express.static(path.join(__dirname, "public")));
 
-// Ruta para manejar las solicitudes al archivo index.html
+//Ruta para manejar las solicitudes al archivo index.html
 // app.get('/', (req, res) => {
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "public", "old_js_vainilla","index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // Iniciar el servidor
 app.listen(port, () => {
