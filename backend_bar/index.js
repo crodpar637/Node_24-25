@@ -1,3 +1,7 @@
+// Importar libreria para manejo de ficheros de configuración
+require('dotenv').config();
+// Importar fichero de configuración con variables de entorno
+const config = require('./config/config');
 // Importar librería express --> web server
 const express = require("express");
 // Importar librería path, para manejar rutas de ficheros en el servidor
@@ -8,9 +12,7 @@ const cors = require("cors");
 const platoRoutes = require("./routes/platoRoutes");
 const pedidoRoutes = require("./routes/pedidoRoutes");
 
-
 const app = express();
-const port = process.env.PORT || 3000;
 
 // Configurar middleware para analizar JSON en las solicitudes
 app.use(express.json());
@@ -31,6 +33,6 @@ app.get("*", (req, res) => {
 });
 
 // Iniciar el servidor
-app.listen(port, () => {
-  console.log(`Servidor escuchando en el puerto ${port}`);
+app.listen(config.port, () => {
+  console.log(`Servidor escuchando en el puerto ${config.port}`);
 });

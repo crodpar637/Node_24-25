@@ -4,6 +4,9 @@ cd proyecto
 
 npm init -y
 
+### Libreria para gestionar ficheros ce configuración
+npm install dotenv 
+
 ### Instalar nodemon 
 npm install --save-dev nodemon
 
