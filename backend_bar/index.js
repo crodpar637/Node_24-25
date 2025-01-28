@@ -1,16 +1,19 @@
 // Importar libreria para manejo de ficheros de configuración
-require('dotenv').config();
+require("dotenv").config();
 // Importar fichero de configuración con variables de entorno
-const config = require('./config/config');
+const config = require("./config/config");
 // Importar librería express --> web server
 const express = require("express");
 // Importar librería path, para manejar rutas de ficheros en el servidor
 const path = require("path");
 // Importar libreria CORS
 const cors = require("cors");
+// Importar librería de manejo de cookies
+const cookieParser = require("cookie-parser");
 // Importar gestores de rutas
 const platoRoutes = require("./routes/platoRoutes");
 const pedidoRoutes = require("./routes/pedidoRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
@@ -18,10 +21,13 @@ const app = express();
 app.use(express.json());
 // Configurar CORS para admitir cualquier origen
 app.use(cors());
+// Habilitar el análisis de cookies
+app.use(cookieParser());
 
 // Configurar rutas de la API Rest
 app.use("/api/platos", platoRoutes);
 app.use("/api/pedidos", pedidoRoutes);
+app.use("/api/users", userRoutes);
 
 // Configurar el middleware para servir archivos estáticos desde el directorio 'public\old_js_vainilla'
 app.use(express.static(path.join(__dirname, "public")));
