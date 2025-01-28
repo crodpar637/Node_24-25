@@ -7,6 +7,7 @@ const {verifyToken} = require('../middlewares/authMiddleware');
 
 router.post('/login', userController.login);
 router.post('/signup', userController.signup);
+router.post('/logout', userController.logout);
 
 // router.get('/', platoController.getAllPlato);
 // router.get('/:idplato', platoController.getPlatoById);
