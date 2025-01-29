@@ -21,6 +21,12 @@ const app = express();
 app.use(express.json());
 // Configurar CORS para admitir cualquier origen
 app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Permitir el frontend en desarrollo
+    credentials: true, // Permitir envío de cookies
+  })
+);
 // Habilitar el análisis de cookies
 app.use(cookieParser());
 

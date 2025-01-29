@@ -50,8 +50,9 @@ class UserController {
       res.cookie("token", token, {
         httpOnly: true, // Evita que JavaScript acceda a la cookie
         // secure: process.env.NODE_ENV === 'production', // Solo en HTTPS en producción
-        sameSite: "strict", // Protección CSRF
+        sameSite: process.env.NODE_ENV === 'production' ? "strict" : 'None', // Protección CSRF
         maxAge: 3600000, // 1 hora en milisegundos
+        domain: "localhost",
       });
 
       res.status(200).json(Respuesta.exito(user, "Inicio de sesión exitoso"));

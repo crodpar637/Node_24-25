@@ -11,7 +11,7 @@ const verifyToken = (req, res, next) => {
     //  const token = req.headers['authorization']?.split(' ')[1]; // Obtén el token del encabezado si es el caso
     // Obtener el token de la cookie
     const token = req.cookies.token;
-
+    console.log("Token: ", token);
     if (!token) {
         return res.status(401).json({ ok: false, datos: null , mensaje: 'Token no proporcionado' });
     }
