@@ -2,9 +2,9 @@
 const jwt = require('jsonwebtoken');
 // Importar libreria para manejo de ficheros de configuración
 require('dotenv').config();
-
-
-const SECRET_KEY = process.env.SECRET_KEY || 'my_secret_key';
+// Importar fichero de configuración con variables de entorno
+const config = require('../config/config.js');
+const {logMensaje} = require('../utils/logger.js');
 
 // Middleware para verificar el token JWT
 const verifyToken = (req, res, next) => {
@@ -17,10 +17,11 @@ const verifyToken = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, SECRET_KEY); // Verifica el token
+        const decoded = jwt.verify(token, config.secretKey); // Verifica el token
         req.user = decoded; // Adjunta los datos del usuario al objeto req (se agrega la propiedad al objeto req)
         next(); // Continúa al siguiente middleware o controlador
     } catch (err) {
+        logMensaje.error(`Error al verificar el token: ${err.message}`);
         return res.status(403).json({ ok: false, datos: null , mensaje: 'Token inválido o expirado' });
     }
 };

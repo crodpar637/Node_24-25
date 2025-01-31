@@ -5,8 +5,8 @@ const config = require('./config');
 
 // Instanciar sequelize  para conectar a mysql
 const sequelize = new Sequelize(
-  config.db.name, // nombre bd
-  config.db.user, // usuario
+  config.db.name, // nombre bd 
+  config.db.user, // usuario 
   config.db.password, // password
   {
     // objeto con opciones de conexion

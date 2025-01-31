@@ -9,6 +9,8 @@ const sequelize = require("../config/sequelize.js");
 const bcrypt = require('bcrypt'); 
 // Librería de manejo de JWT
 const jwt = require('jsonwebtoken');
+// Importar fichero de configuración con variables de entorno
+const config = require('../config/config.js');
 
 // Cargar las definiciones del modelo en sequelize
 const models = initModels(sequelize);
@@ -27,6 +29,7 @@ class UserController {
           .json(Respuesta.error(null, "Usuario no encontrado"));
       }
 
+      // Verificar la contraseña
       const validPassword = await bcrypt.compare(password, user.password);
       if (!validPassword) {
         return res
@@ -42,19 +45,23 @@ class UserController {
           email: user.email,
           role: user.role,
         },
-        process.env.SECRET_KEY || "my_secret_key",
+       config.secretKey,
         { expiresIn: "1h" }
       );
 
       // Configurar la cookie con el token
       res.cookie("token", token, {
         httpOnly: true, // Evita que JavaScript acceda a la cookie
-        // secure: process.env.NODE_ENV === 'production', // Solo en HTTPS en producción
-        sameSite: process.env.NODE_ENV === 'production' ? "strict" : 'None', // Protección CSRF
+        secure: process.env.NODE_ENV === 'production', // Solo en HTTPS en producción
+        sameSite: process.env.NODE_ENV === 'production' ? "strict" : 'Lax', // Protección CSRF // Lax en desarrollo
         maxAge: 3600000, // 1 hora en milisegundos
         domain: "localhost",
       });
 
+
+      //Eliminar la contraseña del objeto de respuesta
+      delete user.dataValues.password;
+      
       res.status(200).json(Respuesta.exito(user, "Inicio de sesión exitoso"));
     } catch (err) {
       console.error(err);
@@ -92,6 +99,7 @@ class UserController {
       });
 
       // Responder con éxito
+      delete newUser.dataValues.password; // Eliminar la contraseña del objeto de respuesta
       res.status(201).json(Respuesta.exito( newUser, "Usuario registrado exitosamente"));
 
     } catch (error) {
@@ -102,10 +110,27 @@ class UserController {
     }
   }
 
+  /**
+   * Logs out the user by clearing the authentication token cookie.
+   *
+   * @param {Object} req - The request object.
+   * @param {Object} res - The response object.
+   * @returns {void}
+   */
   async logout(req, res) {
     res.clearCookie('token', { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
     res.status(200).json(Respuesta.exito( null, "Cierre de sesión exitoso"));
 };
+
+  async getAllUsers(req, res) {
+    try {
+      const users = await User.findAll();
+      res.status(200).json(Respuesta.exito(users));
+    } catch (error) {
+      console.error("Error al obtener los usuarios:", error);
+      res.status(500).json(Respuesta.error(null, "Error al obtener los usuarios"));
+    }
+  }
 }
 
 module.exports = new UserController();

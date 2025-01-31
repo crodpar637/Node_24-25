@@ -3,9 +3,9 @@ POST http://localhost:3000/api/users/signup
 Content-Type: application/json
 
 {
-    "username": "juan",
-    "email": "juan@gmail.com",
-    "password": "juan"
+    "username": "Ángel",
+    "email": "angel@gmail.com",
+    "password": "angel"
 }
 
 ### Hacer login OK
@@ -41,3 +41,7 @@ Content-Type: application/json
 ### Hacer logout
 
 POST http://localhost:3000/api/users/logout
+
+
+###
+GET http://localhost:3000/api/users/

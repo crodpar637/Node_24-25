@@ -19,8 +19,11 @@ const app = express();
 
 // Configurar middleware para analizar JSON en las solicitudes
 app.use(express.json());
+
 // Configurar CORS para admitir cualquier origen
-app.use(cors());
+// app.use(cors()); // No permitiría el envío de cookies
+
+// Configurar CORS para admitir el origen del frontend en desarrollo
 app.use(
   cors({
     origin: "http://localhost:5173", // Permitir el frontend en desarrollo

@@ -25,6 +25,8 @@ npm install --save-dev nodemon
   ```
 
 ### Crear fichero .env.development con las variables de entorno de desarrollo
+### Este es el fichero que se usa con npm run dev
+### El fichero .env.production se usa con npm start
 ```
 # Configuración de la base de datos
 DB_HOST=localhost
