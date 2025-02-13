@@ -55,7 +55,7 @@ class UserController {
         secure: process.env.NODE_ENV === 'production', // Solo en HTTPS en producción
         sameSite: process.env.NODE_ENV === 'production' ? "strict" : 'Lax', // Protección CSRF // Lax en desarrollo
         maxAge: 3600000, // 1 hora en milisegundos
-        domain: "localhost",
+        // domain: "localhost",
       });
 
 

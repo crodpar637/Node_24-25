@@ -21,15 +21,18 @@ const app = express();
 app.use(express.json());
 
 // Configurar CORS para admitir cualquier origen
-// app.use(cors()); // No permitiría el envío de cookies
+// app.use(cors()); // No permitiría el envío de cookies porque una API pública
 
-// Configurar CORS para admitir el origen del frontend en desarrollo
-app.use(
-  cors({
-    origin: "http://localhost:5173", // Permitir el frontend en desarrollo
-    credentials: true, // Permitir envío de cookies
-  })
-);
+if (process.env.NODE_ENV !== "production") {
+  // Configurar CORS para admitir el origen del frontend en desarrollo
+  app.use(
+    cors({
+      origin: "http://localhost:5173", // Permitir el frontend en desarrollo
+      credentials: true, // Permitir envío de cookies
+    })
+  );
+}
+
 // Habilitar el análisis de cookies
 app.use(cookieParser());
 

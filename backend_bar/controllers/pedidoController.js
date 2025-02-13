@@ -4,6 +4,7 @@ const Respuesta = require("../utils/respuesta.js");
 const initModels = require("../models/init-models.js").initModels;
 // Crear la instancia de sequelize con la conexión a la base de datos
 const sequelize = require("../config/sequelize.js");
+const { logMensaje } = require("../utils/logger.js");
 
 // Cargar las definiciones del modelo en sequelize
 const models = initModels(sequelize);
@@ -13,6 +14,41 @@ const Plato = models.platos;
 const Pedido = models.pedidos;
 
 class PedidoController {
+  async getGraficaPedidos(req, res) {
+    try {
+      const ventas = await Pedido.findAll({
+        attributes: [
+          "idplato",
+          [sequelize.fn("SUM", sequelize.col("unidades")), "ventas"],
+          [
+            sequelize.fn("SUM", sequelize.literal("unidades * precio")),
+            "ingresos",
+          ],
+        ],
+        include: [
+          {
+            model: Plato,
+            as: "idplato_plato",
+            attributes: ["nombre", "precio"], // Traemos el nombre del plato
+          },
+        ],
+        group: ["idplato", "nombre", "precio"],
+        raw: true,
+      });
+      res.json(Respuesta.exito(ventas, "Datos de pedidos recuperados"));
+    } catch (err) {
+      logMensaje("Error al recuperar los datos de los pedidos" + err);
+      res
+        .status(500)
+        .json(
+          Respuesta.error(
+            null,
+            `Error al recuperar los datos de los pedidos: ${req.originalUrl}`
+          )
+        );
+    }
+  }
+
   async getAllPedido(req, res) {
     try {
       const data = await Pedido.findAll({
