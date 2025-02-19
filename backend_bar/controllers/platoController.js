@@ -1,32 +1,32 @@
-// Importar libreria para respuestas
-const Respuesta = require("../utils/respuesta");
-const { logMensaje } = require("../utils/logger.js");
-// Recuperar función de inicialización de modelos
-const initModels = require("../models/init-models.js").initModels;
-// Crear la instancia de sequelize con la conexión a la base de datos
-const sequelize = require("../config/sequelize.js");
+  // Importar libreria para respuestas
+  const Respuesta = require("../utils/respuesta");
+  const { logMensaje } = require("../utils/logger.js");
+  // Recuperar función de inicialización de modelos
+  const initModels = require("../models/init-models.js").initModels;
+  // Crear la instancia de sequelize con la conexión a la base de datos
+  const sequelize = require("../config/sequelize.js");
 
-// Cargar las definiciones del modelo en sequelize
-const models = initModels(sequelize);
-// Recuperar el modelo plato
-const Plato = models.platos;
+  // Cargar las definiciones del modelo en sequelize
+  const models = initModels(sequelize);
+  // Recuperar el modelo plato
+  const Plato = models.platos;
 
-class PlatoController {
-  async createPlato(req, res) {
-    // Implementa la lógica para crear un nuevo plato
-    const plato = req.body;
+  class PlatoController {
+    async createPlato(req, res) {
+      // Implementa la lógica para crear un nuevo plato
+      const plato = req.body;
 
-    try {
-      const platoNuevo = await Plato.create(plato);
+      try {
+        const platoNuevo = await Plato.create(plato);
 
-      res.status(201).json(Respuesta.exito(platoNuevo, "Plato insertado"));
-    } catch (err) {
-      logMensaje("Error :" + err);
-      res
-        .status(500)
-        .json(Respuesta.error(null, `Error al crear un plato nuevo: ${plato}`));
+        res.status(201).json(Respuesta.exito(platoNuevo, "Plato insertado"));
+      } catch (err) {
+        logMensaje("Error :" + err);
+        res
+          .status(500)
+          .json(Respuesta.error(null, `Error al crear un plato nuevo: ${plato}`));
+      }
     }
-  }
 
   async getAllPlato(req, res) {
     try {
