@@ -3,13 +3,13 @@ require('dotenv').config({
 });
 
 module.exports = {
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 80,
   db: {
-    host: process.env.DB_HOST || "localhost",
+    host: process.env.DB_HOST || "crossover.proxy.rlwy.net",
     user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "test",
+    password: process.env.DB_PASSWORD || "cZMTrkdvLIIkOpSbbUPvpuQNqCTAmtpu",
     name: process.env.DB_NAME || "bar",
-    port: process.env.DB_PORT || 3306,
+    port: process.env.DB_PORT || 16302,
   },
   secretKey: process.env.SECRET_KEY || "default_secret",
 };

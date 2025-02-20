@@ -6,7 +6,7 @@ services:
     ports:
       - 8080:80
     environment:
-      - PMA_HOST=crossover.proxy.rlwy.net:16302
-      - PMA_PORT=16302
+      - PMA_HOST=gondola.proxy.rlwy.net:44234
+      - PMA_PORT=44234
       - PMA_USER=root
-      - PMA_PASSWORD=cZMTrkdvLIIkOpSbbUPvpuQNqCTAmtpu
+      - PMA_PASSWORD=WOfefLztPJrjRyVbNTnEQJZLjrIELdaR
