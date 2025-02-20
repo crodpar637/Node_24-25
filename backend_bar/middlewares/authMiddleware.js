@@ -1,7 +1,9 @@
 // Importar librería de manejo de JWT
 const jwt = require("jsonwebtoken");
 // Importar libreria para manejo de ficheros de configuración
-require("dotenv").config();
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV || 'development'}` 
+});
 // Importar fichero de configuración con variables de entorno
 const config = require("../config/config.js");
 const { logMensaje } = require("../utils/logger.js");
